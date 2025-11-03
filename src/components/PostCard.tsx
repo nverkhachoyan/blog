@@ -12,30 +12,16 @@ export type PostCardProps = {
 
 export const PostCard: FC<PostCardProps> = (post) => {
   return (
-    <li>
+    <li className="group">
       <a
-        className="group block no-underline"
+        className="block no-underline transition-opacity duration-200 hover:opacity-70"
         href={`/blog/${post.id}/`}
       >
-        <article className="flex gap-6 p-5 rounded-lg transition-all duration-200 hover:bg-white/5">
-          {post.heroImageSrc && (
-            <div className="w-40 h-28 flex-shrink-0 overflow-hidden rounded-md">
-              <ImageCard 
-                src={post.heroImageSrc} 
-                alt={post.title}
-                className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
-              />
-            </div>
-          )}
-          
-          <div className="flex-1 min-w-0 flex flex-col justify-center">
-            <h3 className="text-xl font-semibold mb-2 text-gray-100 group-hover:text-white transition-colors line-clamp-2">
-              {post.title}
-            </h3>
-            
+        <article className="flex flex-col gap-3">
+          <div className="flex items-baseline gap-3">
             <time 
               dateTime={post.pubDate.toISOString()}
-              className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3"
+              className="text-xs font-medium text-muted-foreground uppercase tracking-wider shrink-0"
             >
               {post.pubDate.toLocaleDateString("en-us", {
                 year: "numeric",
@@ -44,12 +30,16 @@ export const PostCard: FC<PostCardProps> = (post) => {
               })}
             </time>
             
-            {post.description && (
-              <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">
-                {post.description}
-              </p>
-            )}
+            <h3 className="text-lg font-semibold text-foreground leading-snug">
+              {post.title}
+            </h3>
           </div>
+          
+          {post.description && (
+            <p className="text-[0.9375rem] text-muted-foreground leading-relaxed pl-[4.5rem]">
+              {post.description}
+            </p>
+          )}
         </article>
       </a>
     </li>

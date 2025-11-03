@@ -1,26 +1,17 @@
 ---
-import { Image } from "astro:assets";
-import nverk from "../assets/nverk.webp";
 import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header class="w-full bg-transparent">
-  <div class="max-w-3xl mx-auto px-6 py-6 flex items-center justify-between">
-    <h1 class="brand text-lg md:text-xl">
+<header class="w-full bg-transparent border-b border-border/40">
+  <div class="max-w-3xl mx-auto px-6 py-8 flex items-center justify-between">
+    <h1 class="brand text-base">
       <a class="inline-flex items-center gap-2 no-underline" href="/">
-        <Image
-          src={nverk}
-          alt="portrait"
-          width="32"
-          height="32"
-          class="rounded-full"
-        />
         <span>{SITE_TITLE}</span>
       </a>
     </h1>
 
-    <nav class="hidden md:flex items-center gap-6">
+    <nav class="hidden md:flex items-center gap-8">
       <HeaderLink class="nav-link" href="/">Home</HeaderLink>
       <HeaderLink class="nav-link" href="/blog">Blog</HeaderLink>
       <HeaderLink class="nav-link" href="/about">About</HeaderLink>
@@ -32,37 +23,35 @@ import HeaderLink from "./HeaderLink.astro";
         id="mobile-menu-toggle"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="p-2 rounded-md"
+        class="p-2 -mr-2 rounded-md hover:bg-surface transition-colors"
         title="Open menu"
       >
         <svg
           id="hamburger-open"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
-          aria-hidden
+          stroke="currentColor"
+          aria-hidden="true"
         >
           <path
-            d="M4 7h16M4 12h16M4 17h16"
-            stroke="var(--foreground)"
-            stroke-width="1.6"
+            d="M3 12h18M3 6h18M3 18h18"
+            stroke-width="2"
             stroke-linecap="round"></path>
         </svg>
         <svg
           id="hamburger-close"
-          width="24"
-          height="24"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
-          aria-hidden
+          stroke="currentColor"
+          aria-hidden="true"
           style="display:none;"
         >
-          <path
-            d="M6 6L18 18M6 18L18 6"
-            stroke="var(--foreground)"
-            stroke-width="1.6"
-            stroke-linecap="round"></path>
+          <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"
+          ></path>
         </svg>
       </button>
     </div>
@@ -71,13 +60,25 @@ import HeaderLink from "./HeaderLink.astro";
   <!-- Mobile nav overlay -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-40 hidden bg-background/80 backdrop-blur-sm"
+    class="fixed inset-0 z-40 hidden bg-background/95 backdrop-blur-md"
   >
-    <div class="max-w-md mx-auto mt-20 p-6">
-      <nav class="flex flex-col gap-4">
-        <HeaderLink href="/">Home</HeaderLink>
-        <HeaderLink href="/blog">Blog</HeaderLink>
-        <HeaderLink href="/about">About</HeaderLink>
+    <div class="max-w-md mx-auto mt-24 px-6">
+      <nav class="flex flex-col gap-6">
+        <a
+          href="/"
+          class="text-xl font-medium hover:text-accent transition-colors"
+          >Home</a
+        >
+        <a
+          href="/blog"
+          class="text-xl font-medium hover:text-accent transition-colors"
+          >Blog</a
+        >
+        <a
+          href="/about"
+          class="text-xl font-medium hover:text-accent transition-colors"
+          >About</a
+        >
       </nav>
     </div>
   </div>
