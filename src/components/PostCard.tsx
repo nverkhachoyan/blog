@@ -14,35 +14,43 @@ export const PostCard: FC<PostCardProps> = (post) => {
   return (
     <li>
       <a
-        className="block no-underline hover:opacity-80 transition-opacity"
+        className="group block no-underline"
         href={`/blog/${post.id}/`}
       >
-        <div className="flex items-start gap-4">
+        <article className="flex gap-6 p-5 rounded-lg transition-all duration-200 hover:bg-white/5">
           {post.heroImageSrc && (
-            <div className="w-24 h-24 flex-shrink-0 overflow-hidden rounded-md">
-              <ImageCard src={post.heroImageSrc} alt={post.title} />
+            <div className="w-40 h-28 flex-shrink-0 overflow-hidden rounded-md">
+              <ImageCard 
+                src={post.heroImageSrc} 
+                alt={post.title}
+                className="w-full h-full object-cover transition-transform duration-200 group-hover:scale-105"
+              />
             </div>
           )}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-lg font-semibold mb-1">
+          
+          <div className="flex-1 min-w-0 flex flex-col justify-center">
+            <h3 className="text-xl font-semibold mb-2 text-gray-100 group-hover:text-white transition-colors line-clamp-2">
               {post.title}
             </h3>
-            <p className="text-xs text-muted-foreground mb-2">
-              <time dateTime={post.pubDate.toISOString()}>
-                {post.pubDate.toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-            </p>
+            
+            <time 
+              dateTime={post.pubDate.toISOString()}
+              className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-3"
+            >
+              {post.pubDate.toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "short",
+                day: "numeric",
+              })}
+            </time>
+            
             {post.description && (
-              <p className="text-sm text-muted-foreground line-clamp-2">
+              <p className="text-sm text-gray-400 line-clamp-2 leading-relaxed">
                 {post.description}
               </p>
             )}
           </div>
-        </div>
+        </article>
       </a>
     </li>
   );
