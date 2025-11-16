@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+interface Props {
+	id: string;
+	title: string;
+	description?: string;
+	pubDate: Date;
+	updatedDate?: Date;
+	thumbnail?: any;
+}
+
+const { id, title, description, pubDate, updatedDate, thumbnail } = Astro.props;
+---
+
+<li>
+  <a
+    class="block no-underline hover:opacity-80 transition-opacity"
+    href={`/posts/${id}/`}
+  >
+    <div class="flex items-start gap-4">
+      {
+        thumbnail && (
+          <div class="w-24 h-24 flex-shrink-0 overflow-hidden rounded-md">
+            <Image src={thumbnail} alt={title} width={96} height={96} />
+          </div>
+        )
+      }
+      <div class="flex-1 min-w-0">
+        <h3 class="text-lg font-semibold mb-1">
+          {title}
+        </h3>
+        <p class="text-xs text-muted-foreground mb-2">
+          <time datetime={pubDate.toISOString()}>
+            {
+              pubDate.toLocaleDateString("en-us", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })
+            }
+          </time>
+        </p>
+        {
+          description && (
+            <p class="text-sm text-muted-foreground line-clamp-2">
+              {description}
+            </p>
+          )
+        }
+      </div>
+    </div>
+  </a>
+</li>

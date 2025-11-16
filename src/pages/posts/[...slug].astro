@@ -1,0 +1,93 @@
+---
+import Callout from "@/components/Callout.astro";
+import CodeBlock from "@/components/CodeBlock.astro";
+import ImageCaption from "@/components/ImageCaption.astro";
+import Layout from "@/components/Layout.astro";
+import Quote from "@/components/Quote.astro";
+import Testimonial from "@/components/Testimonial.astro";
+import TwoColumn from "@/components/TwoColumn.astro";
+import { Image } from "astro:assets";
+import { type CollectionEntry, getCollection, render } from "astro:content";
+import FormattedDate from "../../components/FormattedDate.astro";
+import Header from "../../components/Header.astro";
+
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+	const posts = await getCollection("posts");
+	return posts.map((post) => ({
+		params: { slug: post.id },
+		props: post,
+	}));
+}
+type Props = CollectionEntry<"posts">;
+
+const post = Astro.props;
+const { Content } = await render(post);
+
+const { title, description, pubDate, updatedDate, thumbnail } = post.data;
+---
+
+<Layout title={title} description={description}>
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <nav class="mb-8">
+      <a
+        href="/posts"
+        class="text-sm text-muted-foreground hover:text-foreground transition-colors"
+      >
+        ← Back to blog
+      </a>
+    </nav>
+    <article>
+      <header class="mb-8">
+        <div class="text-sm text-muted-foreground mb-4">
+          <time datetime={pubDate.toISOString()}>
+            <FormattedDate date={pubDate} />
+          </time>
+          {
+            updatedDate && (
+              <span class="ml-3">
+                Updated{" "}
+                <time datetime={updatedDate.toISOString()}>
+                  <FormattedDate date={updatedDate} />
+                </time>
+              </span>
+            )
+          }
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">{title}</h1>
+        {
+          description && (
+            <p class="text-lg text-muted-foreground">{description}</p>
+          )
+        }
+      </header>
+
+      <div class="prose-content">
+        {
+          thumbnail && (
+            <Image
+              src={thumbnail}
+              alt=""
+              class="thumbnail w-96 h-auto rounded-md max-h-96 object-cover mx-auto"
+            />
+          )
+        }
+     
+        <Content
+          components={{
+            Callout,
+            CodeBlock,
+            ImageCaption,
+            Quote,
+            Testimonial,
+            TwoColumn,
+          }}
+        />
+
+      </div>
+    </article>
+  </main>
+</Layout>

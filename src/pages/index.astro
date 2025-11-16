@@ -1,81 +1,49 @@
 ---
+import Layout from "@/components/Layout.astro";
 import { getCollection } from "astro:content";
-import BaseHead from "../components/BaseHead.astro";
-import Footer from "../components/Footer.astro";
 import Header from "../components/Header.astro";
+import PostCard from "../components/PostCard.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import { PostCard } from "@/components/PostCard";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+const posts = (await getCollection("posts")).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <Header />
 
-    <main class="max-w-3xl mx-auto px-6 py-16">
-      <section class="mb-24">
-        <h1 class="text-4xl font-bold mb-4 tracking-tight">Nver Khachoyan</h1>
-        <p class="text-lg text-muted-foreground leading-relaxed max-w-2xl mb-8">
-          Computer science practitioner writing about software development,
-          systems design, and the art of building reliable systems.
-        </p>
-      </section>
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <section class="mb-16">
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">Nver Khachoyan</h1>
+      <p class="text-lg text-muted-foreground mb-6">
+        Computer science practitioner. I write about software development,
+        systems design, and occasionally other things that interest me.
+      </p>
+    </section>
 
-      <!-- Recent posts -->
-      <section>
-        <h2
-          class="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-8"
-        >
-          Recent Writing
-        </h2>
-
-        <ul class="space-y-8">
-          {
-            posts
-              .slice(0, 5)
-              .map((post) => (
-                <PostCard
-                  id={post.id}
-                  title={post.data.title}
-                  description={post.data.description}
-                  pubDate={post.data.pubDate}
-                  updatedDate={post.data.updatedDate}
-                  heroImageSrc={post.data.heroImage?.src}
-                />
-              ))
-          }
-        </ul>
-
-        <div class="mt-12 pt-8 border-t border-border/40">
-          <a
-            href="/blog"
-            class="inline-flex items-center gap-2 text-sm font-medium hover:text-accent transition-colors"
-          >
-            View all posts
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 16 16"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path
-                d="M6 12l4-4-4-4"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"></path>
-            </svg>
-          </a>
-        </div>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+    <!-- Recent posts -->
+    <section>
+      <h2 class="text-xl font-semibold mb-6">Recent Posts</h2>
+      <ul class="space-y-8">
+        {
+          posts
+            .slice(0, 5)
+            .map((post) => (
+              <PostCard
+                id={post.id}
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate}
+                updatedDate={post.data.updatedDate}
+                thumbnail={post.data?.thumbnail}
+              />
+            ))
+        }
+      </ul>
+      <div class="mt-8">
+        <a href="/posts" class="text-sm">All posts →</a>
+      </div>
+    </section>
+  </main>
+</Layout>

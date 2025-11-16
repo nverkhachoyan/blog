@@ -1,0 +1,18 @@
+---
+interface Props {
+	layout?: "equal" | "sidebar-left" | "sidebar-right";
+}
+
+const { layout = "equal" } = Astro.props;
+
+const gridClass = {
+	equal: "md:grid-cols-2",
+	"sidebar-left": "md:grid-cols-[300px_1fr]",
+	"sidebar-right": "md:grid-cols-[1fr_300px]",
+};
+---
+
+<div class={`my-8 grid grid-cols-1 ${gridClass[layout]} gap-6`}>
+  <slot />
+</div>
+

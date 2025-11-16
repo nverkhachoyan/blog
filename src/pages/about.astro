@@ -1,43 +1,35 @@
 ---
-import BaseHead from "@/components/BaseHead.astro";
-import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
+import Layout from "@/components/Layout.astro";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-  </head>
-  <body>
-    <Header />
-    <main class="max-w-3xl mx-auto px-6 py-12">
-      <section>
-        <h1 class="text-3xl font-bold mb-6">About</h1>
-        <div class="prose-content max-w-none">
-          <p class="text-muted-foreground mb-4">
-            A concise intro about who I am and what I build.
+<Layout title={SITE_TITLE} description={SITE_DESCRIPTION}>
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <section>
+      <h1 class="text-3xl font-bold mb-6">About</h1>
+      <div class="prose-content max-w-none">
+        <p class="text-muted-foreground mb-4">
+          A concise intro about who I am and what I build.
+        </p>
+        <div class="space-y-4">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
+            ultricies leo integer malesuada nunc vel risus commodo viverra.
+            Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi
+            quis eleifend quam adipiscing.
           </p>
-          <div class="space-y-4">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae
-              ultricies leo integer malesuada nunc vel risus commodo viverra.
-              Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi
-              quis eleifend quam adipiscing.
-            </p>
 
-            <p>
-              Morbi tristique senectus et netus. Id semper risus in hendrerit
-              gravida rutrum quisque non tellus. Habitasse platea dictumst
-              quisque sagittis purus sit amet. Tellus molestie nunc non blandit
-              massa. Cursus vitae congue mauris rhoncus.
-            </p>
-          </div>
+          <p>
+            Morbi tristique senectus et netus. Id semper risus in hendrerit
+            gravida rutrum quisque non tellus. Habitasse platea dictumst quisque
+            sagittis purus sit amet. Tellus molestie nunc non blandit massa.
+            Cursus vitae congue mauris rhoncus.
+          </p>
         </div>
-      </section>
-    </main>
-    <Footer />
-  </body>
-</html>
+      </div>
+    </section>
+  </main>
+</Layout>

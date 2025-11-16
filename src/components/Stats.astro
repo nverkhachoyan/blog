@@ -1,0 +1,22 @@
+---
+interface Props {
+	metrics: Array<{
+		value: string;
+		label: string;
+	}>;
+}
+
+const { metrics } = Astro.props;
+---
+
+<div class="my-8 grid grid-cols-2 md:grid-cols-4 gap-4">
+  {
+    metrics.map((metric) => (
+      <div class="bg-card border border-border rounded-lg p-4 text-center">
+        <div class="text-3xl font-bold text-accent mb-1">{metric.value}</div>
+        <div class="text-sm text-muted-foreground">{metric.label}</div>
+      </div>
+    ))
+  }
+</div>
+

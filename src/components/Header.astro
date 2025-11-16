@@ -3,33 +3,59 @@ import { SITE_TITLE } from "../consts";
 import HeaderLink from "./HeaderLink.astro";
 ---
 
-<header class="w-full bg-transparent border-b border-border/40">
-  <div class="max-w-3xl mx-auto px-6 py-8 flex items-center justify-between">
-    <h1 class="brand text-base">
-      <a class="inline-flex items-center gap-2 no-underline" href="/">
-        <span>{SITE_TITLE}</span>
+<header class="sticky top-0 z-50 w-full transition-all duration-300 ease-out">
+  <!-- Hidden checkbox for CSS-only mobile menu toggle -->
+  <input
+    type="checkbox"
+    id="mobile-menu-toggle"
+    class="sr-only"
+    aria-label="Toggle mobile menu"
+  />
+
+  <div class="max-w-3xl mx-auto px-6 relative">
+    <div
+      class="flex items-center justify-between py-4 transition-all duration-300 ease-out header-inner"
+    >
+      <!-- Logo & Title -->
+      <a
+        href="/"
+        class="inline-flex items-center gap-3 no-underline group relative z-10"
+      >
+        <div
+          class="relative rounded-full ring-2 ring-border transition-all duration-200 group-hover:ring-accent/50 group-hover:scale-105"
+        >
+          <Image
+            src={nverk}
+            alt="portrait"
+            width="36"
+            height="36"
+            class="rounded-full"
+          />
+        </div>
+        <span
+          class="text-base md:text-lg font-semibold tracking-tight transition-colors duration-200 group-hover:text-accent"
+        >
+          {SITE_TITLE}
+        </span>
       </a>
-    </h1>
 
-    <nav class="hidden md:flex items-center gap-8">
-      <HeaderLink class="nav-link" href="/">Home</HeaderLink>
-      <HeaderLink class="nav-link" href="/blog">Blog</HeaderLink>
-      <HeaderLink class="nav-link" href="/about">About</HeaderLink>
-    </nav>
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1 relative z-10">
+        <HeaderLink class="nav-link" href="/">Home</HeaderLink>
+        <HeaderLink class="nav-link" href="/posts">Posts</HeaderLink>
+        <HeaderLink class="nav-link" href="/about">About</HeaderLink>
+      </nav>
 
-    <!-- Mobile hamburger -->
-    <div class="md:hidden">
-      <button
-        id="mobile-menu-toggle"
+      <!-- Mobile Menu Button -->
+      <label
+        for="mobile-menu-toggle"
+        class="md:hidden cursor-pointer p-2 -mr-2 rounded-lg hover:bg-surface/60 active:scale-95 transition-all duration-200 relative z-[60]"
         aria-expanded="false"
         aria-controls="mobile-menu"
-        class="p-2 -mr-2 rounded-md hover:bg-surface transition-colors"
-        title="Open menu"
+        title="Toggle menu"
       >
         <svg
-          id="hamburger-open"
-          width="20"
-          height="20"
+          class="hamburger-open w-6 h-6 transition-all duration-200 ease-out"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -38,50 +64,77 @@ import HeaderLink from "./HeaderLink.astro";
           <path
             d="M3 12h18M3 6h18M3 18h18"
             stroke-width="2"
+            d="M3 12h18M3 6h18M3 18h18"
+            stroke-width="2"
             stroke-linecap="round"></path>
         </svg>
         <svg
-          id="hamburger-close"
-          width="20"
-          height="20"
+          class="hamburger-close w-6 h-6 absolute top-2 left-2 opacity-0 scale-75 transition-all duration-200 ease-out"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           aria-hidden="true"
-          style="display:none;"
         >
           <path d="M18 6L6 18M6 6l12 12" stroke-width="2" stroke-linecap="round"
           ></path>
         </svg>
-      </button>
+      </label>
+    </div>
+
+    <!-- Subtle divider line -->
+    <div
+      class="header-divider absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-border to-transparent opacity-0 transition-opacity duration-300"
+    >
     </div>
   </div>
 
-  <!-- Mobile nav overlay -->
+  <!-- Mobile Menu Overlay -->
   <div
     id="mobile-menu"
-    class="fixed inset-0 z-40 hidden bg-background/95 backdrop-blur-md"
+    class="md:hidden fixed inset-0 z-40 bg-background/95 backdrop-blur-md opacity-0 invisible pointer-events-none transition-all duration-300 ease-out"
   >
-    <div class="max-w-md mx-auto mt-24 px-6">
-      <nav class="flex flex-col gap-6">
-        <a
-          href="/"
-          class="text-xl font-medium hover:text-accent transition-colors"
-          >Home</a
-        >
-        <a
-          href="/blog"
-          class="text-xl font-medium hover:text-accent transition-colors"
-          >Blog</a
-        >
-        <a
-          href="/about"
-          class="text-xl font-medium hover:text-accent transition-colors"
-          >About</a
-        >
+    <label
+      for="mobile-menu-toggle"
+      class="absolute inset-0 cursor-pointer"
+      aria-label="Close menu"></label>
+
+    <div
+      class="relative z-10 h-full flex items-center justify-center opacity-0 scale-95 transition-all duration-300 ease-out mobile-menu-content"
+    >
+      <nav class="flex flex-col items-center gap-2 px-6">
+        <HeaderLink href="/" class="mobile-nav-link">Home</HeaderLink>
+        <HeaderLink href="/posts" class="mobile-nav-link">Posts</HeaderLink>
+        <HeaderLink href="/about" class="mobile-nav-link">About</HeaderLink>
       </nav>
     </div>
   </div>
 
-  <script src="/js/mobile-menu.js" defer></script>
+  <script is:inline>
+    // Scroll detection for header animation
+    function initHeaderScroll() {
+      const header = document.querySelector("header");
+      if (!header) return;
+
+      const handleScroll = () => {
+        if (window.scrollY > 20) {
+          header.classList.add("scrolled");
+        } else {
+          header.classList.remove("scrolled");
+        }
+      };
+
+      // Check initial scroll position
+      handleScroll();
+
+      // Remove existing listener if any to prevent duplicates
+      window.removeEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleScroll, { passive: true });
+    }
+
+    // Initialize on page load
+    initHeaderScroll();
+
+    // Reinitialize after view transitions
+    document.addEventListener("astro:after-swap", initHeaderScroll);
+  </script>
 </header>

@@ -1,0 +1,155 @@
+---
+title: Blog Components Demo
+description: A showcase of all available custom components for your blog posts
+pubDate: 2025-11-14T00:00:00.000Z
+---
+
+## Callout Component
+
+<Testimonial
+  body={<>
+    waddup
+  </>}
+  author="yoyo"
+  role="yomaaan"
+/>
+
+The `Callout` component is perfect for highlighting important information.
+
+<Callout type="info">
+  This is an **info** callout. Use it to share helpful information with your
+  readers.
+</Callout>
+
+<Callout type="note">
+  This is a **note** callout with a lovely lavender accent. Perfect for side
+  notes and additional context.
+</Callout>
+
+<Callout type="warning">
+  This is a **warning** callout. Use it to alert readers about important
+  considerations.
+</Callout>
+
+<Callout type="success">
+  This is a **success** callout. Great for celebrating wins or confirming
+  successful outcomes.
+</Callout>
+
+<Callout type="error">
+  This is an **error** callout. Use it to highlight critical issues or mistakes
+  to avoid.
+</Callout>
+
+## Quote Component
+
+The `Quote` component adds beautiful, styled quotations to your posts.
+
+<Quote author="Nver Khachoyan" source="Blog Design Philosophy">
+  Design is not just what it looks like and feels like. Design is how it works.
+  Every component should serve a purpose while maintaining aesthetic harmony.
+</Quote>
+
+<Quote author="Anonymous">
+  Sometimes the best design is invisible — it just works.
+</Quote>
+
+## Testimonial Component
+
+Perfect for showcasing customer feedback or peer reviews.
+
+<Testimonial
+  author="Jane Developers"
+  role="Senior Software Engineer"
+  body={<>
+    bruvvaaaa
+  </>}
+/>
+
+## CodeBlock Component
+
+Wrap your code examples in a styled container with optional title and language tags.
+
+<CodeBlock title="example.ts" language="typescript">
+  ```typescript
+  function greet(name: string): string {
+    return `Hello, ${name}!`;
+  }
+
+  console.log(greet("World"));
+
+  ```
+</CodeBlock>
+
+<CodeBlock title="config.json">
+  ```json
+  {
+    "theme": "dark",
+    "primaryColor": "oklch(0.62 0.22 293)"
+  }
+  ```
+</CodeBlock>
+
+## ImageCaption Component
+
+Add beautiful captions to your images.
+
+<ImageCaption caption="A stunning view of the mountains at sunset">
+  ![Placeholder
+  image](https://placehold.co/800x400/2a2d3a/8b7bd8?text=Beautiful+Landscape)
+</ImageCaption>
+
+## TwoColumn Layout
+
+Create side-by-side content layouts for comparisons or complementary information.
+
+<TwoColumn layout="equal">
+  ### Before
+
+  ```javascript
+  // Old approach
+  const data = getData();
+  processData(data);
+  displayData(data);
+  ```
+
+  ### After
+
+  ```javascript
+  // New approach with async/await
+  const data = await getData();
+  await processData(data);
+  await displayData(data);
+  ```
+</TwoColumn>
+
+<TwoColumn layout="sidebar-right">
+  Main content goes here. This is the primary column with all your detailed information. The sidebar will appear on the right side on larger screens.
+
+  You can write multiple paragraphs, add **formatting**, and include all standard markdown elements.
+
+  ***
+
+  ### Sidebar
+
+  Quick tips, related links, or supplementary information goes here.
+
+  * Key point 1
+  * Key point 2
+  * Key point 3
+</TwoColumn>
+
+## Mixing Components
+
+You can combine these components for powerful layouts:
+
+<Callout type="info">
+  <Quote author="Design Principle">
+    Start with the content, then layer on the design. Never the other way
+    around.
+  </Quote>
+</Callout>
+
+***
+
+That's it! Use these components to create engaging, beautiful blog posts that match your site's design system.

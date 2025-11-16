@@ -1,0 +1,62 @@
+---
+import {
+	AlertTriangle,
+	CheckCircle,
+	FileText,
+	Info,
+	XCircle,
+} from "@lucide/astro";
+
+interface Props {
+	type?: "info" | "warning" | "success" | "error" | "note";
+}
+
+const { type = "info" } = Astro.props;
+
+const styles = {
+	info: {
+		bg: "bg-[oklch(0.25_0.04_293)]",
+		border: "border-[oklch(0.62_0.22_293)]",
+		icon: Info,
+		title: "Info",
+	},
+	warning: {
+		bg: "bg-[oklch(0.25_0.04_60)]",
+		border: "border-[oklch(0.70_0.18_60)]",
+		icon: AlertTriangle,
+		title: "Warning",
+	},
+	success: {
+		bg: "bg-[oklch(0.25_0.04_150)]",
+		border: "border-[oklch(0.65_0.18_150)]",
+		icon: CheckCircle,
+		title: "Success",
+	},
+	error: {
+		bg: "bg-[oklch(0.25_0.04_27)]",
+		border: "border-[oklch(0.58_0.24_27)]",
+		icon: XCircle,
+		title: "Error",
+	},
+	note: {
+		bg: "bg-[oklch(0.25_0.04_305)]",
+		border: "border-[oklch(0.71_0.19_305)]",
+		icon: FileText,
+		title: "Note",
+	},
+};
+
+const style = styles[type];
+const IconComponent = style.icon;
+---
+
+<div
+  class={`${style.bg} ${style.border} border-l-4 rounded-lg p-4 my-6 flex gap-3`}
+>
+  <div class="flex-shrink-0" aria-hidden="true">
+    <IconComponent class="w-5 h-5" />
+  </div>
+  <div class="flex-1 prose-content">
+    <slot />
+  </div>
+</div>
